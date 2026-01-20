@@ -1,0 +1,210 @@
+# TRAVERSAL PATTERN
+curr = head
+while curr:
+    # process curr.value
+    curr = curr.next
+-------------------------
+# DUMMY NODE PATTERN
+dummy = Node(0)
+dummy.next = head
+curr = dummy
+
+# attach or modify nodes using curr.next
+
+return dummy.next
+-------------------------
+# REVERSE LINKED LIST (3 POINTERS)
+prev = None
+curr = head
+
+while curr:
+    nxt = curr.next      # save next
+    curr.next = prev     # reverse link
+    prev = curr          # move prev
+    curr = nxt           # move curr
+
+return prev
+-------------------------
+# FAST & SLOW POINTER PATTERN
+slow = fast = head
+
+while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+-------------------------
+# MERGE TWO SORTED LINKED LISTS
+dummy = Node(0)
+curr = dummy
+
+while l1 and l2:
+    if l1.value < l2.value:
+        curr.next = l1
+        l1 = l1.next
+    else:
+        curr.next = l2
+        l2 = l2.next
+    curr = curr.next
+
+curr.next = l1 or l2
+return dummy.next
+-------------------------
+# DELETION PATTERN (WITH DUMMY NODE)
+dummy = Node(0)
+dummy.next = head
+
+prev = dummy
+curr = head
+
+while curr:
+    if curr.value == target:
+        prev.next = curr.next
+    else:
+        prev = curr
+    curr = curr.next
+
+return dummy.next
+-------------------------
+# TWO POINTER GAP PATTERN (REMOVE NTH FROM END)
+dummy = Node(0)
+dummy.next = head
+
+first = second = dummy
+
+for _ in range(n + 1):
+    first = first.next
+
+while first:
+    first = first.next
+    second = second.next
+
+second.next = second.next.next
+return dummy.next
+-------------------------
+# CYCLE DETECTION PATTERN
+slow = fast = head
+
+while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+    if slow == fast:
+        return True
+
+return False
+-------------------------
+# CYCLE START DETECTION PATTERN
+slow = fast = head
+
+while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+    if slow == fast:
+        break
+
+slow = head
+while slow != fast:
+    slow = slow.next
+    fast = fast.next
+
+return slow
+-------------------------
+# PALINDROME LINKED LIST PATTERN
+slow = fast = head
+
+while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+
+# reverse second half
+prev = None
+curr = slow
+while curr:
+    nxt = curr.next
+    curr.next = prev
+    prev = curr
+    curr = nxt
+
+# compare halves
+left = head
+right = prev
+while right:
+    if left.value != right.value:
+        return False
+    left = left.next
+    right = right.next
+
+return True
+-------------------------
+# INTERSECTION OF TWO LINKED LISTS
+p1 = headA
+p2 = headB
+
+while p1 != p2:
+    p1 = p1.next if p1 else headB
+    p2 = p2.next if p2 else headA
+
+return p1
+-------------------------
+# PARTITION LINKED LIST PATTERN
+less_dummy = Node(0)
+greater_dummy = Node(0)
+
+less = less_dummy
+greater = greater_dummy
+curr = head
+
+while curr:
+    if curr.value < x:
+        less.next = curr
+        less = less.next
+    else:
+        greater.next = curr
+        greater = greater.next
+    curr = curr.next
+
+greater.next = None
+less.next = greater_dummy.next
+return less_dummy.next
+-------------------------
+# REORDER LINKED LIST PATTERN
+# find middle
+slow = fast = head
+while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+
+# reverse second half
+prev = None
+curr = slow.next
+slow.next = None
+while curr:
+    nxt = curr.next
+    curr.next = prev
+    prev = curr
+    curr = nxt
+
+# merge two halves
+first = head
+second = prev
+while second:
+    t1 = first.next
+    t2 = second.next
+    first.next = second
+    second.next = t1
+    first = t1
+    second = t2
+-------------------------
+# COPY LINKED LIST WITH RANDOM POINTER
+old_to_new = {}
+
+curr = head
+while curr:
+    old_to_new[curr] = Node(curr.value)
+    curr = curr.next
+
+curr = head
+while curr:
+    old_to_new[curr].next = old_to_new.get(curr.next)
+    old_to_new[curr].random = old_to_new.get(curr.random)
+    curr = curr.next
+
+return old_to_new[head]
