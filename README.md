@@ -32,8 +32,5 @@ This repository acts as a **pattern reference handbook** — helping you recall 
 - Dry-run examples for intuition
 - Common mistakes to avoid
 
----
-
-## 📂 Repository Structure
 
 
